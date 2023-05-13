@@ -82,14 +82,22 @@ async function run() {
 
         // here is the DELETE method  starts
 
+
+        // first you define the path you want to delete by id set up a route with id 
         app.delete("/posts/:id", async (req, res) => {
+
+            // 2nd get id by use params this is req .params .id  first get you send request then you get a res params then you get a id from params [req.params.id] 
 
             const id = req.params.id
 
+            // here is making a query  find the _id from the collection then new objectId(id) =<<=pass the id then 
             const query = { _id: new ObjectId(id) }
 
+
+            // make a result variable  await for the response then Db. <== this is the database name  .deleteOne not many set the query (query)
             const result = await Db.deleteOne(query)
 
+            // response sending here res is result 
             res.send(result)
 
 
@@ -110,21 +118,22 @@ async function run() {
             const query = { _id: new ObjectId(id) }
 
 
-
+            // you want to sorting you need to now about the options this is provide you values projection is sorting the value by 1 
             let options = {
                 projection: { name: 1, title: 1, country: 1, number: 1, age: 1 }
             }
 
-            const result = await Db.findOne(query,options)
+            // set the options on the right side or left side of the value
+            const result = await Db.findOne(query, options)
 
+
+            // here is sending the response
             res.send(result)
 
 
         })
 
         // here is the DELETE method  ends
-
-
 
         // ===================================================================================
 
